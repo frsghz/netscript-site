@@ -1,164 +1,215 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  
-  <meta charset="UTF-8" />
-  <title>NETSCRIPT</title>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      background-color: #141414;
-      font-family: 'Courier Prime', monospace;
-      color: white;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clone Netflix avec PDF & Favoris</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  body {
+    background-color: #141414;
+    color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background-color: #141414;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  header {
+    background-color: #111;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
 
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: red;
-      letter-spacing: 2px;
-    }
+  header .logo {
+    font-weight: 900;
+    font-size: 28px;
+    color: #e50914;
+    user-select: none;
+    letter-spacing: 2px;
+    cursor: default;
+  }
 
-    nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+  header nav {
+    display: flex;
+    gap: 25px;
+  }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+  header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 0;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s;
+    cursor: pointer;
+  }
+  header nav a.active,
+  header nav a:hover {
+    border-bottom-color: #e50914;
+  }
 
-    nav a.active {
-      text-decoration: underline;
-      font-weight: bold;
-      color: red;
-    }
+  .search-wrapper {
+    position: relative;
+  }
 
-    .search-bar {
-      padding: 20px;
-      text-align: center;
-    }
+  .search-wrapper input[type="search"] {
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px 6px 32px;
+    font-size: 14px;
+    color: #fff;
+    width: 250px;
+  }
+  .search-wrapper input[type="search"]::placeholder {
+    color: #aaa;
+  }
+  .search-wrapper svg {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    fill: #aaa;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
 
-    .search-bar input {
-      width: 60%;
-      padding: 10px;
-      font-size: 16px;
-      font-family: 'Courier Prime', monospace;
-      border-radius: 5px;
-      border: none;
-    }
+  main {
+    padding: 20px 30px;
+  }
 
-    h2 {
-      margin-left: 20px;
-    }
+  .category {
+    margin-bottom: 40px;
+  }
 
-    .row {
-      margin: 20px 0;
-    }
+  .category h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
 
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      padding: 0 20px;
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+    gap: 14px;
+  }
 
-    .carousel::-webkit-scrollbar {
+  .card {
+    background-color: #222;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    outline-offset: 3px;
+    position: relative;
+  }
+  .card:hover,
+  .card:focus {
+    transform: scale(1.08);
+    outline: 3px solid #e50914;
+  }
+
+  .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card .title {
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Bouton favoris */
+  .fav-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    color: #bbb;
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+    user-select: none;
+  }
+  .fav-btn:hover {
+    color: #e50914;
+  }
+  .fav-btn.active {
+    color: #e50914;
+  }
+
+  /* Scroll horizontal Netflix style (optionnel) */
+  .scroll-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .scroll-row::-webkit-scrollbar {
+    height: 8px;
+  }
+  .scroll-row::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header nav {
       display: none;
     }
-
-    .film {
-      min-width: 180px;
-      height: 270px;
-      background-color: #333;
-      margin-right: 10px;
-      border-radius: 8px;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
+    .search-wrapper input[type="search"] {
+      width: 180px;
     }
-
-    .film:hover {
-      transform: scale(1.08);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-      z-index: 2;
-    }
-
-    .film img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .title {
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      right: 5px;
-      background: rgba(0, 0, 0, 0.6);
-      font-size: 14px;
-      padding: 5px;
-      text-align: center;
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    .fav-btn {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      color: white;
-      user-select: none;
-      transition: color 0.3s;
-    }
-
-    .fav-btn.active {
-      color: red;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="logo">NETSCRIPT</div>
-    <nav>
-      <a id="nav-home" class="active">Accueil</a>
-      <a id="nav-favs">Mes Favoris</a>
-    </nav>
-  </header>
-
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Rechercher un film..." />
+<header>
+  <div class="logo">NETSCRIPT</div>
+  <nav>
+    <a href="#" class="active" id="nav-films">Films</a>
+    <a href="#" id="nav-fav">Favoris</a>
+  </nav>
+  <div class="search-wrapper">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14c-2.48 0-4.5-2.02-4.5-4.5S7.02 5 9.5 5 14 7.02 14 9.5 11.98 14 9.5 14z"/></svg>
+    <input type="search" id="searchInput" placeholder="Rechercher un film..." autocomplete="off" />
   </div>
+</header>
 
-  <div id="content"></div>
+<main id="content" tabindex="0" aria-live="polite">
+  <!-- Films s'afficheront ici -->
+</main>
 
-  <script>
-     const films = [
-      { title: "Avatar", letter: "A", image: "https://static.posters.cz/image/750/7182.jpg", pdf: "https://thescriptsavant.com/movies/Avatar.pdf" },
-      { title: "Avengers", letter: "A", image: "https://via.placeholder.com/180x270?text=Avengers", pdf: "#" },
+<script>
+  const films = [
+  { title: "Avatar", letter: "A", image: "https://static.posters.cz/image/750/7182.jpg", pdf: "https://thescriptsavant.com/movies/Avatar.pdf" },
+      { title: "Avengers", letter: "A", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmtPt2JOysvHQw4SoSfajVncHRiXM_X7Ldbw&s", pdf: "https://assets.scriptslug.com/live/pdf/scripts/the-avengers-2012.pdf" },
       { title: "Batman Begins", letter: "B", image: "https://affiches-cine.fr/wp-content/uploads/2020/11/batman-begins.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/batman-begins-2005.pdf?v=1729114868" },
-      { title: "Black Panther", letter: "B", image: "https://static1.squarespace.com/static/5a1c2452268b96d901cd3471/t/5c2687b74d7a9c2ebbdb95e9/1546028997301/Black+Panther.pdf", pdf: "#" },
+      { title: "Black Panther", letter: "B", image: "https://lumiere-a.akamaihd.net/v1/images/p_blackpanther_19754_4ac13f07.jpeg?region=0,0,540,810", pdf: "https://assets.scriptslug.com/live/pdf/scripts/black-panther-2018.pdf?v=1729114873" },
       { title: "Coco", letter: "C", image: "https://i.etsystatic.com/52493649/r/il/737bb3/6017390972/il_570xN.6017390972_rrcd.jpg", pdf: "https://thescriptsavant.com/movies/Coco.pdf" },
       { title: "Cars 2", letter: "C", image: "https://i.ebayimg.com/images/g/~dMAAOSwY99jbk~J/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Cars_2.pdf" },
       { title: "Django Unchained", letter: "D", image: "https://m.media-amazon.com/images/I/81sfuF1VbaL.jpg", pdf: "https://thescriptsavant.com/movies/Django_Unchained.pdf" },
@@ -197,121 +248,189 @@
           { title: "Zodiac", letter: "Z", image: "https://m.media-amazon.com/images/S/pv-target-images/900e2ee66b46da135fdf3ff4d8c0954e504e2be4e0293eabd34d9617d972abd0.jpg", pdf: "https://thescriptsavant.com/movies/Zodiac.pdf" }
     ];
 
-    const content = document.getElementById('content');
-    const searchInput = document.getElementById('searchInput');
-    const navHome = document.getElementById('nav-home');
-    const navFavs = document.getElementById('nav-favs');
+  const content = document.getElementById('content');
+  const searchInput = document.getElementById('searchInput');
+  const navFilms = document.getElementById('nav-films');
+  const navFav = document.getElementById('nav-fav');
 
-    // On va stocker les favoris dans localStorage pour garder entre sessions
-    let favorites = new Set(JSON.parse(localStorage.getItem('favorites') || '[]'));
+  // Récupérer favoris depuis localStorage (tableau de titles)
+  let favoris = JSON.parse(localStorage.getItem('favoris')) || [];
 
-    // Fonction pour sauvegarder favoris dans localStorage
-    function saveFavorites() {
-      localStorage.setItem('favorites', JSON.stringify([...favorites]));
+  function saveFavoris() {
+    localStorage.setItem('favoris', JSON.stringify(favoris));
+  }
+
+  function isFavori(film) {
+    return favoris.includes(film.title);
+  }
+
+  function toggleFavori(film, btn) {
+    if (isFavori(film)) {
+      favoris = favoris.filter(t => t !== film.title);
+      btn.classList.remove('active');
+    } else {
+      favoris.push(film.title);
+      btn.classList.add('active');
     }
+    saveFavoris();
+  }
 
-    // Fonction pour afficher les films donnés (générique, filtré par liste passée)
-    function renderFilms(filmsToShow) {
-      content.innerHTML = '';
-      if (filmsToShow.length === 0) {
-        content.innerHTML = '<p style="text-align:center; margin-top:40px;">Aucun film à afficher.</p>';
-        return;
+  function createFilmCard(film) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', film.title);
+
+    // Au clic sur la carte (sauf bouton favoris) ouvre PDF
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('fav-btn')) return; // ignore clic sur bouton favoris
+      window.open(film.pdf, '_blank');
+    });
+    card.addEventListener('keypress', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === card) {
+        window.open(film.pdf, '_blank');
       }
-      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-      alphabet.forEach(letter => {
-        const rowFilms = filmsToShow.filter(f => f.letter === letter);
-        if (rowFilms.length > 0) {
-          const row = document.createElement('div');
-          row.className = 'row';
-          row.dataset.letter = letter;
-          row.innerHTML = `<h2>${letter}</h2><div class="carousel" id="row-${letter}"></div>`;
-          content.appendChild(row);
-
-          const carousel = row.querySelector('.carousel');
-          rowFilms.forEach(film => {
-            const filmEl = document.createElement('div');
-            filmEl.className = 'film';
-
-            const isFav = favorites.has(film.title);
-
-            filmEl.innerHTML = `
-              <img src="${film.image}" alt="${film.title}" />
-              <div class="title">${film.title}</div>
-              <div class="fav-btn ${isFav ? 'active' : ''}">&#10084;</div>
-            `;
-
-            filmEl.addEventListener('click', e => {
-              if (e.target.classList.contains('fav-btn')) return;
-              window.open(film.pdf, '_blank');
-            });
-
-            const favBtn = filmEl.querySelector('.fav-btn');
-            favBtn.addEventListener('click', () => {
-              if (favorites.has(film.title)) {
-                favorites.delete(film.title);
-                favBtn.classList.remove('active');
-              } else {
-                favorites.add(film.title);
-                favBtn.classList.add('active');
-              }
-              saveFavorites();
-              // Si on est dans la vue favoris et qu'on retire un favori, on rafraichit l'affichage
-              if (navFavs.classList.contains('active')) {
-                renderFavorites();
-              }
-            });
-
-            carousel.appendChild(filmEl);
-          });
-        }
-      });
-    }
-
-    // Afficher tous les films (accueil)
-    function renderAll() {
-      navHome.classList.add('active');
-      navFavs.classList.remove('active');
-      searchInput.value = '';
-      searchInput.placeholder = "Rechercher un film...";
-      renderFilms(films);
-    }
-
-    // Afficher uniquement les films favoris
-    function renderFavorites() {
-      navFavs.classList.add('active');
-      navHome.classList.remove('active');
-      searchInput.value = '';
-      searchInput.placeholder = "Rechercher dans vos favoris...";
-      const favFilms = films.filter(f => favorites.has(f.title));
-      renderFilms(favFilms);
-    }
-
-    // Recherche dynamique sur le contenu affiché
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase();
-      const rows = document.querySelectorAll('.row');
-
-      rows.forEach(row => {
-        let hasMatch = false;
-        const filmsInRow = row.querySelectorAll('.film');
-        filmsInRow.forEach(film => {
-          const title = film.querySelector('.title').textContent.toLowerCase();
-          const match = title.includes(query);
-          film.classList.toggle('hidden', !match);
-          if (match) hasMatch = true;
-        });
-        row.classList.toggle('hidden', !hasMatch);
-      });
     });
 
-    // Gestion du clic sur menu
-    navHome.addEventListener('click', renderAll);
-    navFavs.addEventListener('click', renderFavorites);
+    const img = document.createElement('img');
+    img.src = film.image;
+    img.alt = `Affiche de ${film.title}`;
+    card.appendChild(img);
 
-    // Au départ, on affiche tout
-    renderAll();
-  </script>
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = film.title;
+    card.appendChild(title);
+
+    // Bouton favoris
+    const favBtn = document.createElement('button');
+    favBtn.className = 'fav-btn';
+    favBtn.setAttribute('aria-label', isFavori(film) ? `Retirer ${film.title} des favoris` : `Ajouter ${film.title} aux favoris`);
+    favBtn.innerHTML = isFavori(film) ? '♥' : '♡';
+
+    if (isFavori(film)) favBtn.classList.add('active');
+
+    favBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // éviter d'ouvrir PDF au clic sur bouton favoris
+      toggleFavori(film, favBtn);
+      favBtn.setAttribute('aria-label', isFavori(film) ? `Retirer ${film.title} des favoris` : `Ajouter ${film.title} aux favoris`);
+      favBtn.innerHTML = isFavori(film) ? '♥' : '♡';
+    });
+
+    card.appendChild(favBtn);
+
+    return card;
+  }
+
+  function renderFilms() {
+    content.innerHTML = '';
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.setAttribute('aria-label', 'Films populaires');
+
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Films populaires';
+    section.appendChild(h2);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    films.forEach(film => {
+      grid.appendChild(createFilmCard(film));
+    });
+
+    section.appendChild(grid);
+    content.appendChild(section);
+  }
+
+  function renderFavoris() {
+    content.innerHTML = '';
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.setAttribute('aria-label', 'Films favoris');
+
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Mes favoris';
+    section.appendChild(h2);
+
+    const favorisFilms = films.filter(f => favoris.includes(f.title));
+
+    if (favorisFilms.length === 0) {
+      const msg = document.createElement('p');
+      msg.className = 'msg';
+      msg.textContent = "Vous n'avez aucun film en favoris.";
+      section.appendChild(msg);
+    } else {
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      favorisFilms.forEach(film => grid.appendChild(createFilmCard(film)));
+      section.appendChild(grid);
+    }
+
+    content.appendChild(section);
+  }
+
+  function renderSearch(query) {
+    content.innerHTML = '';
+    const q = query.toLowerCase().trim();
+    if (!q) {
+      renderFilms();
+      navFilms.classList.add('active');
+      navFav.classList.remove('active');
+      return;
+    }
+    navFilms.classList.remove('active');
+    navFav.classList.remove('active');
+
+    const filtered = films.filter(f => f.title.toLowerCase().includes(q));
+
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.setAttribute('aria-label', `Résultats de recherche pour "${query}"`);
+
+    const h2 = document.createElement('h2');
+    h2.textContent = `Résultats pour "${query}"`;
+    section.appendChild(h2);
+
+    if (filtered.length === 0) {
+      const msg = document.createElement('p');
+      msg.className = 'msg';
+      msg.textContent = "Aucun résultat trouvé.";
+      section.appendChild(msg);
+    } else {
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      filtered.forEach(film => grid.appendChild(createFilmCard(film)));
+      section.appendChild(grid);
+    }
+
+    content.appendChild(section);
+  }
+
+  searchInput.addEventListener('input', e => {
+    renderSearch(e.target.value);
+  });
+
+  navFilms.addEventListener('click', e => {
+    e.preventDefault();
+    searchInput.value = '';
+    renderFilms();
+    navFilms.classList.add('active');
+    navFav.classList.remove('active');
+    searchInput.focus();
+  });
+
+  navFav.addEventListener('click', e => {
+    e.preventDefault();
+    searchInput.value = '';
+    renderFavoris();
+    navFav.classList.add('active');
+    navFilms.classList.remove('active');
+  });
+
+  // Affichage initial
+  renderFilms();
+</script>
 </body>
 </html>
-
 
