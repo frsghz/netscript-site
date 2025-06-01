@@ -1,0 +1,317 @@
+#<!DOCTYPE html>
+<html lang="fr">
+<head>
+  
+  <meta charset="UTF-8" />
+  <title>NETSCRIPT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      background-color: #141414;
+      font-family: 'Courier Prime', monospace;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #141414;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: red;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    nav a.active {
+      text-decoration: underline;
+      font-weight: bold;
+      color: red;
+    }
+
+    .search-bar {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .search-bar input {
+      width: 60%;
+      padding: 10px;
+      font-size: 16px;
+      font-family: 'Courier Prime', monospace;
+      border-radius: 5px;
+      border: none;
+    }
+
+    h2 {
+      margin-left: 20px;
+    }
+
+    .row {
+      margin: 20px 0;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      padding: 0 20px;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .film {
+      min-width: 180px;
+      height: 270px;
+      background-color: #333;
+      margin-right: 10px;
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .film:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      z-index: 2;
+    }
+
+    .film img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .title {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      right: 5px;
+      background: rgba(0, 0, 0, 0.6);
+      font-size: 14px;
+      padding: 5px;
+      text-align: center;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .fav-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      user-select: none;
+      transition: color 0.3s;
+    }
+
+    .fav-btn.active {
+      color: red;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">NETSCRIPT</div>
+    <nav>
+      <a id="nav-home" class="active">Accueil</a>
+      <a id="nav-favs">Mes Favoris</a>
+    </nav>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Rechercher un film..." />
+  </div>
+
+  <div id="content"></div>
+
+  <script>
+     const films = [
+      { title: "Avatar", letter: "A", image: "https://static.posters.cz/image/750/7182.jpg", pdf: "https://thescriptsavant.com/movies/Avatar.pdf" },
+      { title: "Avengers", letter: "A", image: "https://via.placeholder.com/180x270?text=Avengers", pdf: "#" },
+      { title: "Batman Begins", letter: "B", image: "https://affiches-cine.fr/wp-content/uploads/2020/11/batman-begins.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/batman-begins-2005.pdf?v=1729114868" },
+      { title: "Black Panther", letter: "B", image: "https://static1.squarespace.com/static/5a1c2452268b96d901cd3471/t/5c2687b74d7a9c2ebbdb95e9/1546028997301/Black+Panther.pdf", pdf: "#" },
+      { title: "Coco", letter: "C", image: "https://i.etsystatic.com/52493649/r/il/737bb3/6017390972/il_570xN.6017390972_rrcd.jpg", pdf: "https://thescriptsavant.com/movies/Coco.pdf" },
+      { title: "Cars 2", letter: "C", image: "https://i.ebayimg.com/images/g/~dMAAOSwY99jbk~J/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Cars_2.pdf" },
+      { title: "Django Unchained", letter: "D", image: "https://m.media-amazon.com/images/I/81sfuF1VbaL.jpg", pdf: "https://thescriptsavant.com/movies/Django_Unchained.pdf" },
+      { title: "Encanto", letter: "E", image: "https://i.ebayimg.com/images/g/-yQAAOSw0VhifajI/s-l1200.jpg", pdf: "https://deadline.com/wp-content/uploads/2022/01/Encanto-Read-The-Screenplay.pdf" },
+      { title: "Forrest Gump", letter: "F", image: "https://m.media-amazon.com/images/I/71CuAt3ey+L.jpg", pdf: "https://thescriptsavant.com/movies/Forest_Gump.pdf" },
+      { title: "Frozen", letter: "F", image: "https://i.ebayimg.com/images/g/cIwAAOSwPYZU-Nl3/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Frozen.pdf" },
+      { title: "Gladiator", letter: "G", image: "https://m.media-amazon.com/images/I/61O9+6+NxYL._UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Gladiator.pdf" },
+      { title: "Gravity", letter: "G", image: "https://storage.googleapis.com/pod_public/1300/263095.jpg", pdf: "https://thescriptsavant.com/movies/Gravity.pdf" },
+      { title: "Harry Potter", letter: "H", image: "https://images.wall-art.de/format:webp/q:92/rs:fit:780:/_img/out/pictures/master/product/1/104639.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/harry-potter-and-the-sorcerers-stone-2001.pdf?v=1729114922" },
+        { title: "Harry Potter 2", letter: "H", image: "https://fr.web.img4.acsta.net/medias/nmedia/00/02/53/35/affiche0.jpg", pdf: "https://thescriptsavant.com/movies/Harry_Potter_Chamber_Of_Secrets.pdf" },
+       { title: "Harry Potter 3", letter: "H", image: "https://static.posters.cz/image/1300/161981.jpg", pdf: "https://thescriptsavant.com/movies/Harry_Potter_And_The_Prisoner_Of_Azkaban.pdf" },
+      { title: "Hunger Games", letter: "H", image: "https://m.media-amazon.com/images/I/71-v9tCUfwL.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/the-hunger-games-2012.pdf?v=1729115022" },
+      { title: "Inception", letter: "I", image: "https://m.media-amazon.com/images/I/91b3Xtjt0IL.jpg", pdf: "https://thescriptsavant.com/movies/Inception.pdfhttps://thescriptsavant.com/movies/Inception.pdf" },
+      { title: "Interstellar", letter: "I", image: "https://m.media-amazon.com/images/I/91obuWzA3XL.jpg", pdf: "https://thescriptsavant.com/movies/Interstellar.pdf" },
+      { title: "Joker", letter: "J", image: "https://m.media-amazon.com/images/I/71Fhf2mdURL._AC_UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Joker.pdf" },
+      { title: "Kill Bill", letter: "K", image: "https://m.media-amazon.com/images/I/51bDlr-OkSL.jpg", pdf: "https://thescriptsavant.com/movies/Kill_Bill_1.pdf" },
+          { title: "Kill Bill 2", letter: "K", image: "https://i.ebayimg.com/images/g/aawAAOSwJBpjM73-/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Kill_Bill_2.pdf" },
+      { title: "Kung Fu Panda", letter: "K", image: "https://m.media-amazon.com/images/I/51qboNmFw3L._AC_UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Kung_Fu_Panda.pdf" },
+      { title: "Logan", letter: "L", image: "https://m.media-amazon.com/images/I/51CMBfqCe8L.jpg", pdf: "https://thescriptsavant.com/movies/Logan.pdf" },
+      { title: "Matrix", letter: "M", image: "https://static.posters.cz/image/1300/104636.jpg", pdf: "https://www.dailyscript.com/scripts/the_matrix.pdf" },
+    { title: "Oppenheimer", letter: "O", image: "https://fr.web.img5.acsta.net/pictures/23/05/26/16/52/2793170.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/oppenheimer-2023.pdf" },
+    { title: "Pirates des Caraïbes", letter: "P", image: "https://fr.web.img4.acsta.net/medias/nmedia/18/35/07/46/affiche2.jpg", pdf: "https://thescriptsavant.com/movies/Pirates_Of_The_Caribbean.pdf" },
+      { title: "Pulp Fiction", letter: "P", image: "https://static.posters.cz/image/1300/1288.jpg", pdf: "https://thescriptsavant.com/movies/Pulp_Fiction.pdf" },
+      { title: "Ratatouille", letter: "R", image: "https://m.media-amazon.com/images/I/81n+81eQRuL._AC_UF894,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Ratatouille.pdf" },
+      { title: "Rocky", letter: "R", image: "https://play-lh.googleusercontent.com/TI9nse41ytOyltfqzcZDNqEMh_FgUhLVp-ZQ8g4ZcoWBBFgpyJon5fO8pfQgschmlwBMUvh_CNDa3U3XIBY", pdf: "https://thescriptsavant.com/movies/Rocky.pdf" },
+      { title: "Shrek", letter: "S", image: "https://musicart.xboxlive.com/7/39372400-0000-0000-0000-000000000002/504/image.jpg", pdf: "https://thescriptsavant.com/movies/Shrek.pdf" },
+        { title: "Snatch", letter: "S", image: "https://fr.web.img2.acsta.net/c_310_420/pictures/14/08/20/12/54/429006.jpg", pdf: "https://thescriptsavant.com/movies/Snatch.pdf" },
+      { title: "Spider-Man", letter: "S", image: "https://fr.web.img5.acsta.net/medias/nmedia/00/00/00/33/spiderman.jpg", pdf: "https://thescriptsavant.com/movies/Spider_Man.pdf" },
+      { title: "Titanic", letter: "T", image: "https://www.chroniquedisney.fr/imgFiliale/20th/1997-titanic-01-big.jpg", pdf: "https://thescriptsavant.com/movies/Titanic.pdf" },
+      { title: "Toy Story", letter: "T", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmTew-eQZdiUY7Y6rXTSkvfA4saes4NXGuIQ&s", pdf: "https://thescriptsavant.com/movies/Toy_Story.pdf" },
+      { title: "Up", letter: "U", image: "https://m.media-amazon.com/images/M/MV5BNmI1ZTc5MWMtMDYyOS00ZDc2LTkzOTAtNjQ4NWIxNjYyNDgzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", pdf: "https://thescriptsavant.com/movies/Up.pdf" },
+      { title: "Us", letter: "U", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxiisFjKjbIVcO6NeNgWRlhpwbQMkDs0AKPA&s", pdf: "https://thescriptsavant.com/movies/Us.pdf" },
+      { title: "Venom", letter: "V", image: "https://fr.web.img3.acsta.net/pictures/18/09/20/10/41/4338768.jpg", pdf: "https://www.simplyscripts.com/scripts/VENOM-THEMOVIE.pdf" },
+      { title: "WALL-E", letter: "W", image: "https://upload.wikimedia.org/wikipedia/en/4/4c/WALL-E_poster.jpg", pdf: "https://script-pdf.s3-us-west-2.amazonaws.com/wall-e-script-pdf.pdf" },
+           { title: "X-Men", letter: "X", image: "https://upload.wikimedia.org/wikipedia/en/8/81/X-MenfilmPoster.jpg", pdf: "https://thescriptsavant.com/movies/XMen.pdf" },
+          { title: "Zodiac", letter: "Z", image: "https://m.media-amazon.com/images/S/pv-target-images/900e2ee66b46da135fdf3ff4d8c0954e504e2be4e0293eabd34d9617d972abd0.jpg", pdf: "https://thescriptsavant.com/movies/Zodiac.pdf" }
+    ];
+
+    const content = document.getElementById('content');
+    const searchInput = document.getElementById('searchInput');
+    const navHome = document.getElementById('nav-home');
+    const navFavs = document.getElementById('nav-favs');
+
+    // On va stocker les favoris dans localStorage pour garder entre sessions
+    let favorites = new Set(JSON.parse(localStorage.getItem('favorites') || '[]'));
+
+    // Fonction pour sauvegarder favoris dans localStorage
+    function saveFavorites() {
+      localStorage.setItem('favorites', JSON.stringify([...favorites]));
+    }
+
+    // Fonction pour afficher les films donnés (générique, filtré par liste passée)
+    function renderFilms(filmsToShow) {
+      content.innerHTML = '';
+      if (filmsToShow.length === 0) {
+        content.innerHTML = '<p style="text-align:center; margin-top:40px;">Aucun film à afficher.</p>';
+        return;
+      }
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      alphabet.forEach(letter => {
+        const rowFilms = filmsToShow.filter(f => f.letter === letter);
+        if (rowFilms.length > 0) {
+          const row = document.createElement('div');
+          row.className = 'row';
+          row.dataset.letter = letter;
+          row.innerHTML = `<h2>${letter}</h2><div class="carousel" id="row-${letter}"></div>`;
+          content.appendChild(row);
+
+          const carousel = row.querySelector('.carousel');
+          rowFilms.forEach(film => {
+            const filmEl = document.createElement('div');
+            filmEl.className = 'film';
+
+            const isFav = favorites.has(film.title);
+
+            filmEl.innerHTML = `
+              <img src="${film.image}" alt="${film.title}" />
+              <div class="title">${film.title}</div>
+              <div class="fav-btn ${isFav ? 'active' : ''}">&#10084;</div>
+            `;
+
+            filmEl.addEventListener('click', e => {
+              if (e.target.classList.contains('fav-btn')) return;
+              window.open(film.pdf, '_blank');
+            });
+
+            const favBtn = filmEl.querySelector('.fav-btn');
+            favBtn.addEventListener('click', () => {
+              if (favorites.has(film.title)) {
+                favorites.delete(film.title);
+                favBtn.classList.remove('active');
+              } else {
+                favorites.add(film.title);
+                favBtn.classList.add('active');
+              }
+              saveFavorites();
+              // Si on est dans la vue favoris et qu'on retire un favori, on rafraichit l'affichage
+              if (navFavs.classList.contains('active')) {
+                renderFavorites();
+              }
+            });
+
+            carousel.appendChild(filmEl);
+          });
+        }
+      });
+    }
+
+    // Afficher tous les films (accueil)
+    function renderAll() {
+      navHome.classList.add('active');
+      navFavs.classList.remove('active');
+      searchInput.value = '';
+      searchInput.placeholder = "Rechercher un film...";
+      renderFilms(films);
+    }
+
+    // Afficher uniquement les films favoris
+    function renderFavorites() {
+      navFavs.classList.add('active');
+      navHome.classList.remove('active');
+      searchInput.value = '';
+      searchInput.placeholder = "Rechercher dans vos favoris...";
+      const favFilms = films.filter(f => favorites.has(f.title));
+      renderFilms(favFilms);
+    }
+
+    // Recherche dynamique sur le contenu affiché
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      const rows = document.querySelectorAll('.row');
+
+      rows.forEach(row => {
+        let hasMatch = false;
+        const filmsInRow = row.querySelectorAll('.film');
+        filmsInRow.forEach(film => {
+          const title = film.querySelector('.title').textContent.toLowerCase();
+          const match = title.includes(query);
+          film.classList.toggle('hidden', !match);
+          if (match) hasMatch = true;
+        });
+        row.classList.toggle('hidden', !hasMatch);
+      });
+    });
+
+    // Gestion du clic sur menu
+    navHome.addEventListener('click', renderAll);
+    navFavs.addEventListener('click', renderFavorites);
+
+    // Au départ, on affiche tout
+    renderAll();
+  </script>
+</body>
+</html>
+
+
