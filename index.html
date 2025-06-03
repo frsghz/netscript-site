@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NETSCRIPT</title>
- <link rel="icon" type="image/png" href="ChatGPT Image 1 juin 2025, 15_00_48.png" />
+<title>Clone Netflix avec PDF & Favoris</title>
 
 <style>
   * {
@@ -208,31 +207,7 @@
 
 <script>
   const films = [
-  { title: "Avatar", letter: "A", image: "https://static.posters.cz/image/750/7182.jpg", pdf: "https://thescriptsavant.com/movies/Avatar.pdf" },
-      { title: "Avengers", letter: "A", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmtPt2JOysvHQw4SoSfajVncHRiXM_X7Ldbw&s", pdf: "https://assets.scriptslug.com/live/pdf/scripts/the-avengers-2012.pdf" },
-      { title: "Batman Begins", letter: "B", image: "https://affiches-cine.fr/wp-content/uploads/2020/11/batman-begins.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/batman-begins-2005.pdf?v=1729114868" },
-      { title: "Black Panther", letter: "B", image: "https://lumiere-a.akamaihd.net/v1/images/p_blackpanther_19754_4ac13f07.jpeg?region=0,0,540,810", pdf: "https://assets.scriptslug.com/live/pdf/scripts/black-panther-2018.pdf?v=1729114873" },
-      { title: "Coco", letter: "C", image: "https://i.etsystatic.com/52493649/r/il/737bb3/6017390972/il_570xN.6017390972_rrcd.jpg", pdf: "https://thescriptsavant.com/movies/Coco.pdf" },
-      { title: "Cars 2", letter: "C", image: "https://i.ebayimg.com/images/g/~dMAAOSwY99jbk~J/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Cars_2.pdf" },
-      { title: "Django Unchained", letter: "D", image: "https://m.media-amazon.com/images/I/81sfuF1VbaL.jpg", pdf: "https://thescriptsavant.com/movies/Django_Unchained.pdf" },
-      { title: "Encanto", letter: "E", image: "https://i.ebayimg.com/images/g/-yQAAOSw0VhifajI/s-l1200.jpg", pdf: "https://deadline.com/wp-content/uploads/2022/01/Encanto-Read-The-Screenplay.pdf" },
-      { title: "Forrest Gump", letter: "F", image: "https://m.media-amazon.com/images/I/71CuAt3ey+L.jpg", pdf: "https://thescriptsavant.com/movies/Forest_Gump.pdf" },
-      { title: "Frozen", letter: "F", image: "https://i.ebayimg.com/images/g/cIwAAOSwPYZU-Nl3/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Frozen.pdf" },
-      { title: "Gladiator", letter: "G", image: "https://m.media-amazon.com/images/I/61O9+6+NxYL._UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Gladiator.pdf" },
-      { title: "Gravity", letter: "G", image: "https://storage.googleapis.com/pod_public/1300/263095.jpg", pdf: "https://thescriptsavant.com/movies/Gravity.pdf" },
-      { title: "Harry Potter", letter: "H", image: "https://images.wall-art.de/format:webp/q:92/rs:fit:780:/_img/out/pictures/master/product/1/104639.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/harry-potter-and-the-sorcerers-stone-2001.pdf?v=1729114922" },
-        { title: "Harry Potter 2", letter: "H", image: "https://fr.web.img4.acsta.net/medias/nmedia/00/02/53/35/affiche0.jpg", pdf: "https://thescriptsavant.com/movies/Harry_Potter_Chamber_Of_Secrets.pdf" },
-       { title: "Harry Potter 3", letter: "H", image: "https://static.posters.cz/image/1300/161981.jpg", pdf: "https://thescriptsavant.com/movies/Harry_Potter_And_The_Prisoner_Of_Azkaban.pdf" },
-      { title: "Hunger Games", letter: "H", image: "https://m.media-amazon.com/images/I/71-v9tCUfwL.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/the-hunger-games-2012.pdf?v=1729115022" },
-      { title: "Inception", letter: "I", image: "https://m.media-amazon.com/images/I/91b3Xtjt0IL.jpg", pdf: "https://thescriptsavant.com/movies/Inception.pdfhttps://thescriptsavant.com/movies/Inception.pdf" },
-      { title: "Interstellar", letter: "I", image: "https://m.media-amazon.com/images/I/91obuWzA3XL.jpg", pdf: "https://thescriptsavant.com/movies/Interstellar.pdf" },
-      { title: "Joker", letter: "J", image: "https://m.media-amazon.com/images/I/71Fhf2mdURL._AC_UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Joker.pdf" },
-      { title: "Kill Bill", letter: "K", image: "https://m.media-amazon.com/images/I/51bDlr-OkSL.jpg", pdf: "https://thescriptsavant.com/movies/Kill_Bill_1.pdf" },
-          { title: "Kill Bill 2", letter: "K", image: "https://i.ebayimg.com/images/g/aawAAOSwJBpjM73-/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Kill_Bill_2.pdf" },
-      { title: "Kung Fu Panda", letter: "K", image: "https://m.media-amazon.com/images/I/51qboNmFw3L._AC_UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Kung_Fu_Panda.pdf" },
-      { title: "Logan", letter: "L", image: "https://m.media-amazon.com/images/I/51CMBfqCe8L.jpg", pdf: "https://thescriptsavant.com/movies/Logan.pdf" },
-      { title: "Matrix", letter: "M", image: "https://static.posters.cz/image/1300/104636.jpg", pdf: "https://www.dailyscript.com/scripts/the_matrix.pdf" },
-    { title: "Oppenheimer", letter: "O", image: "https://fr.web.img5.acsta.net/pictures/23/05/26/16/52/2793170.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/oppenheimer-2023.pdf" },
+ { title: "Avatar", letter: "A", image: "https://static.posters.cz/image/750/7182.jpg", pdf: "https://thescriptsavant.com/movies/Avatar.pdf" }, { title: "Avengers", letter: "A", image: "https://via.placeholder.com/180x270?text=Avengers", pdf: "#" }, { title: "Batman Begins", letter: "B", image: "https://affiches-cine.fr/wp-content/uploads/2020/11/batman-begins.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/batman-begins-2005.pdf?v=1729114868" }, { title: "Black Panther", letter: "B", image: "https://static1.squarespace.com/static/5a1c2452268b96d901cd3471/t/5c2687b74d7a9c2ebbdb95e9/1546028997301/Black+Panther.pdf", pdf: "#" }, { title: "Coco", letter: "C", image: "https://i.etsystatic.com/52493649/r/il/737bb3/6017390972/il_570xN.6017390972_rrcd.jpg", pdf: "https://thescriptsavant.com/movies/Coco.pdf" }, { title: "Cars 2", letter: "C", image: "https://i.ebayimg.com/images/g/~dMAAOSwY99jbk~J/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Cars_2.pdf" }, { title: "Django Unchained", letter: "D", image: "https://m.media-amazon.com/images/I/81sfuF1VbaL.jpg", pdf: "https://thescriptsavant.com/movies/Django_Unchained.pdf" }, { title: "Encanto", letter: "E", image: "https://i.ebayimg.com/images/g/-yQAAOSw0VhifajI/s-l1200.jpg", pdf: "https://deadline.com/wp-content/uploads/2022/01/Encanto-Read-The-Screenplay.pdf" }, { title: "Forrest Gump", letter: "F", image: "https://m.media-amazon.com/images/I/71CuAt3ey+L.jpg", pdf: "https://thescriptsavant.com/movies/Forest_Gump.pdf" }, { title: "Frozen", letter: "F", image: "https://i.ebayimg.com/images/g/cIwAAOSwPYZU-Nl3/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Frozen.pdf" },  { title: "Gladiator", letter: "G", image: "https://m.media-amazon.com/images/I/61O9+6+NxYL._UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Gladiator.pdf" }, { title: "Gravity", letter: "G", image: "https://storage.googleapis.com/pod_public/1300/263095.jpg", pdf: "https://thescriptsavant.com/movies/Gravity.pdf" }, { title: "Harry Potter", letter: "H", image: "https://images.wall-art.de/format:webp/q:92/rs:fit:780:/_img/out/pictures/master/product/1/104639.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/harry-potter-and-the-sorcerers-stone-2001.pdf?v=1729114922" }, { title: "Harry Potter 2", letter: "H", image: "https://fr.web.img4.acsta.net/medias/nmedia/00/02/53/35/affiche0.jpg", pdf: "https://thescriptsavant.com/movies/Harry_Potter_Chamber_Of_Secrets.pdf" },  { title: "Harry Potter 3", letter: "H", image: "https://static.posters.cz/image/1300/161981.jpg", pdf: "https://thescriptsavant.com/movies/Harry_Potter_And_The_Prisoner_Of_Azkaban.pdf" }, { title: "Hunger Games", letter: "H", image: "https://m.media-amazon.com/images/I/71-v9tCUfwL.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/the-hunger-games-2012.pdf?v=1729115022" }, { title: "Inception", letter: "I", image: "https://m.media-amazon.com/images/I/91b3Xtjt0IL.jpg", pdf: "https://thescriptsavant.com/movies/Inception.pdfhttps://thescriptsavant.com/movies/Inception.pdf" }, { title: "Interstellar", letter: "I", image: "https://m.media-amazon.com/images/I/91obuWzA3XL.jpg", pdf: "https://thescriptsavant.com/movies/Interstellar.pdf" }, { title: "Joker", letter: "J", image: "https://m.media-amazon.com/images/I/71Fhf2mdURL._AC_UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Joker.pdf" }, { title: "Kill Bill", letter: "K", image: "https://m.media-amazon.com/images/I/51bDlr-OkSL.jpg", pdf: "https://thescriptsavant.com/movies/Kill_Bill_1.pdf" }, { title: "Kill Bill 2", letter: "K", image: "https://i.ebayimg.com/images/g/aawAAOSwJBpjM73-/s-l1200.jpg", pdf: "https://thescriptsavant.com/movies/Kill_Bill_2.pdf" }, { title: "Kung Fu Panda", letter: "K", image: "https://m.media-amazon.com/images/I/51qboNmFw3L._AC_UF1000,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Kung_Fu_Panda.pdf" }, { title: "Logan", letter: "L", image: "https://m.media-amazon.com/images/I/51CMBfqCe8L.jpg", pdf: "https://thescriptsavant.com/movies/Logan.pdf" }, { title: "Matrix", letter: "M", image: "https://static.posters.cz/image/1300/104636.jpg", pdf: "https://www.dailyscript.com/scripts/the_matrix.pdf" }, { title: "Oppenheimer", letter: "O", image: "https://fr.web.img5.acsta.net/pictures/23/05/26/16/52/2793170.jpg", pdf: "https://assets.scriptslug.com/live/pdf/scripts/oppenheimer-2023.pdf" },
     { title: "Pirates des Caraïbes", letter: "P", image: "https://fr.web.img4.acsta.net/medias/nmedia/18/35/07/46/affiche2.jpg", pdf: "https://thescriptsavant.com/movies/Pirates_Of_The_Caribbean.pdf" },
       { title: "Pulp Fiction", letter: "P", image: "https://static.posters.cz/image/1300/1288.jpg", pdf: "https://thescriptsavant.com/movies/Pulp_Fiction.pdf" },
       { title: "Ratatouille", letter: "R", image: "https://m.media-amazon.com/images/I/81n+81eQRuL._AC_UF894,1000_QL80_.jpg", pdf: "https://thescriptsavant.com/movies/Ratatouille.pdf" },
@@ -247,8 +222,105 @@
       { title: "Venom", letter: "V", image: "https://fr.web.img3.acsta.net/pictures/18/09/20/10/41/4338768.jpg", pdf: "https://www.simplyscripts.com/scripts/VENOM-THEMOVIE.pdf" },
       { title: "WALL-E", letter: "W", image: "https://upload.wikimedia.org/wikipedia/en/4/4c/WALL-E_poster.jpg", pdf: "https://script-pdf.s3-us-west-2.amazonaws.com/wall-e-script-pdf.pdf" },
            { title: "X-Men", letter: "X", image: "https://upload.wikimedia.org/wikipedia/en/8/81/X-MenfilmPoster.jpg", pdf: "https://thescriptsavant.com/movies/XMen.pdf" },
-          { title: "Zodiac", letter: "Z", image: "https://m.media-amazon.com/images/S/pv-target-images/900e2ee66b46da135fdf3ff4d8c0954e504e2be4e0293eabd34d9617d972abd0.jpg", pdf: "https://thescriptsavant.com/movies/Zodiac.pdf" }
+          { title: "Zodiac", letter: "Z", image: "https://m.media-amazon.com/images/S/pv-target-images/900e2ee66b46da135fdf3ff4d8c0954e504e2be4e0293eabd34d9617d972abd0.jpg", pdf: "https://thescriptsavant.com/movies/Zodiac.pdf" },
+    
+    
+    
+ 
+  { title: "Fight Club", letter: "F", image: "https://storage.googleapis.com/pod_public/1300/262697.jpg", pdf: "https://thescriptsavant.com/movies/Fight_Club.pdf" },
+  { title: "The Godfather", letter: "T", image: "https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", pdf: "https://thescriptsavant.com/movies/The_Godfather.pdf" },
+  { title: "Green Book", letter: "P", image: "https://fr.web.img5.acsta.net/pictures/19/02/25/17/06/0818764.jpg", pdf: "https://thescriptsavant.com/movies/Green_Book.pdf" },
+  { title: "The Shawshank Redemption", letter: "T", image: "https://m.media-amazon.com/images/I/51NiGlapXlL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Shawshank_Redemption.pdf" },
+  { title: "The Dark Knight", letter: "T", image: "https://m.media-amazon.com/images/I/51EbJjlTY2L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Dark_Knight.pdf" },
+  { title: "Inception", letter: "I", image: "https://m.media-amazon.com/images/I/51s+oTj3qtL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Inception.pdf" },
+  { title: "Gladiator", letter: "G", image: "https://m.media-amazon.com/images/I/51Axb0Xjr2L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Gladiator.pdf" },
+  { title: "Se7en", letter: "S", image: "https://m.media-amazon.com/images/I/51nM5zBsi5L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Se7en.pdf" },
+  { title: "Interstellar", letter: "I", image: "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Interstellar.pdf" },
+  { title: "The Matrix", letter: "T", image: "https://m.media-amazon.com/images/I/51vpnbwFHrL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Matrix.pdf" },
+  { title: "The Prestige", letter: "T", image: "https://m.media-amazon.com/images/I/51Qvs9i5a%2BL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Prestige.pdf" },
+  { title: "The Silence of the Lambs", letter: "T", image: "https://m.media-amazon.com/images/I/51IxQsoBeYL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Silence_of_the_Lambs.pdf" },
+  { title: "Saving Private Ryan", letter: "S", image: "https://m.media-amazon.com/images/I/51P-52VGGdL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Saving_Private_Ryan.pdf" },
+  { title: "Jurassic Park", letter: "J", image: "https://m.media-amazon.com/images/I/51oBxmV-dML._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Jurassic_Park.pdf" },
+  { title: "The Lion King", letter: "T", image: "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Lion_King.pdf" },
+  { title: "Fight Club", letter: "F", image: "https://m.media-amazon.com/images/I/81d5Qw9nd3L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Fight_Club.pdf" },
+  { title: "Mad Max: Fury Road", letter: "M", image: "https://m.media-amazon.com/images/I/81IwzF4wvsL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Mad_Max_Fury_Road.pdf" },
+  { title: "Joker", letter: "J", image: "https://m.media-amazon.com/images/I/71PZq9plDvL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Joker.pdf" },
+  { title: "Django Unchained", letter: "D", image: "https://m.media-amazon.com/images/I/51EBtFHWfCL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Django_Unchained.pdf" },
+  { title: "Whiplash", letter: "W", image: "https://m.media-amazon.com/images/I/51PvFbQxLsL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Whiplash.pdf" },
+  { title: "No Country for Old Men", letter: "N", image: "https://m.media-amazon.com/images/I/51VzWn-58FL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/No_Country_for_Old_Men.pdf" },
+  { title: "The Departed", letter: "T", image: "https://m.media-amazon.com/images/I/51VWQa9pMiL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Departed.pdf" },
+  { title: "The Social Network", letter: "T", image: "https://m.media-amazon.com/images/I/51W2b23pkLL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Social_Network.pdf" },
+  { title: "Guardians of the Galaxy", letter: "G", image: "https://m.media-amazon.com/images/I/51xNLd3xS-L._AC_.jpg", pdf: "#" },
+  { title: "Deadpool", letter: "D", image: "https://m.media-amazon.com/images/I/51Qvs9i5a%2BL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Deadpool.pdf" },
+  { title: "The Revenant", letter: "T", image: "https://m.media-amazon.com/images/I/51kR3I1dDTL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Revenant.pdf" },
+  { title: "La La Land", letter: "L", image: "https://m.media-amazon.com/images/I/71p3Em3c6-L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/La_La_Land.pdf" },
+  { title: "Call Me By Your Name", letter: "C", image: "https://m.media-amazon.com/images/I/51mRcf9IPaL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Call_Me_By_Your_Name.pdf" },
+  { title: "The Grand Budapest Hotel", letter: "T", image: "https://m.media-amazon.com/images/I/71aY7I1Nj6L._AC_SL1024_.jpg", pdf: "https://thescriptsavant.com/movies/The_Grand_Budapest_Hotel.pdf" },
+  { title: "Birdman", letter: "B", image: "https://m.media-amazon.com/images/I/81AYPpLb1vL._AC_SL1500_.jpg", pdf: "https://thescriptsavant.com/movies/Birdman.pdf" },
+  { title: "Moonlight", letter: "M", image: "https://m.media-amazon.com/images/I/71Xzj1Oa5vL._AC_SL1094_.jpg", pdf: "https://thescriptsavant.com/movies/Moonlight.pdf" },
+  { title: "Black Swan", letter: "B", image: "https://m.media-amazon.com/images/I/51sfCWzcuIL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Black_Swan.pdf" },
+  { title: "Her", letter: "H", image: "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Her.pdf" },
+  { title: "Get Out", letter: "G", image: "https://m.media-amazon.com/images/I/71tRpjM6RNL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Get_Out.pdf" },
+  { title: "Arrival", letter: "A", image: "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Arrival.pdf" },
+  { title: "Whiplash", letter: "W", image: "https://m.media-amazon.com/images/I/51PvFbQxLsL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Whiplash.pdf" },
+  { title: "Inside Out", letter: "I", image: "https://m.media-amazon.com/images/I/71ybO2J5C1L._AC_SY679_.jpg", pdf: "#" },
+  { title: "The Martian", letter: "T", image: "https://m.media-amazon.com/images/I/71Y3xU34A2L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/The_Martian.pdf" },
+  { title: "Logan", letter: "L", image: "https://m.media-amazon.com/images/I/71qKqkgnTSL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Logan.pdf" },
+  { title: "The Bourne Identity", letter: "T", image: "https://m.media-amazon.com/images/I/51tvM-Dq9KL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Bourne_Identity.pdf" },
+  { title: "Shutter Island", letter: "S", image: "https://m.media-amazon.com/images/I/71TcDkh44lL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Shutter_Island.pdf" },
+  { title: "Slumdog Millionaire", letter: "S", image: "https://m.media-amazon.com/images/I/71rNJQ2g-EL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Slumdog_Millionaire.pdf" },
+
+
+     { title: "Ingloruoius Bastards", letter: "Z", image: "https://cinevoraces.fr/_next/image?url=http%3A%2F%2Fcinevoraces_api%3A3005%2Fpublic%2Fposter%2F326&w=750&q=75", pdf: "https://thescriptsavant.com/movies/Zodiac.pdf" },
+  { title: "The Big Lebowski", letter: "T", image: "https://m.media-amazon.com/images/I/71oECURO+xL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/The_Big_Lebowski.pdf" },
+  { title: "American Beauty", letter: "A", image: "https://m.media-amazon.com/images/I/51zAzU2uwRL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/American_Beauty.pdf" },
+  { title: "Blade Runner", letter: "B", image: "https://m.media-amazon.com/images/I/81zbqY0ZlRL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Blade_Runner.pdf" },
+  { title: "The Wolf of Wall Street", letter: "T", image: "https://m.media-amazon.com/images/I/51kpUYk7GKL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Wolf_of_Wall_Street.pdf" },
+  { title: "12 Angry Men", letter: "1", image: "https://m.media-amazon.com/images/I/51cFzzHP8nL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/12_Angry_Men.pdf" },
+  { title: "The Truman Show", letter: "T", image: "https://m.media-amazon.com/images/I/51H1SPfTYGL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Truman_Show.pdf" },
+  { title: "Reservoir Dogs", letter: "R", image: "https://m.media-amazon.com/images/I/71jzGJZq8jL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Reservoir_Dogs.pdf" },
+  { title: "Goodfellas", letter: "G", image: "https://m.media-amazon.com/images/I/71T6PjOjoDL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Goodfellas.pdf" },
+  { title: "A Clockwork Orange", letter: "A", image: "https://m.media-amazon.com/images/I/51igwOjT4YL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/A_Clockwork_Orange.pdf" },
+  { title: "Eternal Sunshine of the Spotless Mind", letter: "E", image: "https://m.media-amazon.com/images/I/71C6Juyxf0L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Eternal_Sunshine_of_the_Spotless_Mind.pdf" },
+  { title: "Donnie Darko", letter: "D", image: "https://m.media-amazon.com/images/I/51bcUVHz1uL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Donnie_Darko.pdf" },
+  { title: "The Social Network", letter: "T", image: "https://m.media-amazon.com/images/I/51W2b23pkLL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Social_Network.pdf" },
+  { title: "Memento", letter: "M", image: "https://m.media-amazon.com/images/I/51Oxx8GiJ1L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Memento.pdf" },
+  { title: "The Exorcist", letter: "T", image: "https://m.media-amazon.com/images/I/51k9Lg4+PoL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Exorcist.pdf" },
+  { title: "The Grand Budapest Hotel", letter: "T", image: "https://m.media-amazon.com/images/I/71aY7I1Nj6L._AC_SL1024_.jpg", pdf: "https://thescriptsavant.com/movies/The_Grand_Budapest_Hotel.pdf" },
+  { title: "12 Years a Slave", letter: "1", image: "https://m.media-amazon.com/images/I/51iRNG6ZWhL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/12_Years_a_Slave.pdf" },
+  { title: "The Big Short", letter: "T", image: "https://m.media-amazon.com/images/I/71c8AwrC17L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/The_Big_Short.pdf" },
+  { title: "Her", letter: "H", image: "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Her.pdf" },
+  { title: "Birdman", letter: "B", image: "https://m.media-amazon.com/images/I/81AYPpLb1vL._AC_SL1500_.jpg", pdf: "https://thescriptsavant.com/movies/Birdman.pdf" },
+  { title: "The Imitation Game", letter: "T", image: "https://m.media-amazon.com/images/I/51Y+q2wXbGL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Imitation_Game.pdf" },
+  { title: "Prisoners", letter: "P", image: "https://m.media-amazon.com/images/I/51Uvow7Q2TL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Prisoners.pdf" },
+  { title: "Gone Girl", letter: "G", image: "https://m.media-amazon.com/images/I/51j0v5TXK+L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Gone_Girl.pdf" },
+  { title: "Nightcrawler", letter: "N", image: "https://m.media-amazon.com/images/I/51Kq8zwD67L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Nightcrawler.pdf" },
+  { title: "The Truman Show", letter: "T", image: "https://m.media-amazon.com/images/I/51H1SPfTYGL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Truman_Show.pdf" },
+  { title: "Zodiac", letter: "Z", image: "https://m.media-amazon.com/images/I/51w1y0zv1WL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Zodiac.pdf" },
+  { title: "Spotlight", letter: "S", image: "https://m.media-amazon.com/images/I/51i5hZ2liVL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Spotlight.pdf" },
+  { title: "Room", letter: "R", image: "https://m.media-amazon.com/images/I/51BdCw5wzZL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Room.pdf" },
+  { title: "Ex Machina", letter: "E", image: "https://m.media-amazon.com/images/I/51ejXdHNDLL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Ex_Machina.pdf" },
+  { title: "The Revenant", letter: "T", image: "https://m.media-amazon.com/images/I/51kR3I1dDTL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Revenant.pdf" },
+  { title: "The King's Speech", letter: "T", image: "https://m.media-amazon.com/images/I/51W0KHslYRL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Kings_Speech.pdf" },
+  { title: "The Hurt Locker", letter: "T", image: "https://m.media-amazon.com/images/I/51j7UK5nvGL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Hurt_Locker.pdf" },
+  { title: "Hereditary", letter: "H", image: "https://m.media-amazon.com/images/I/61z77lCQeIL._AC_SY679_.jpg", pdf: "#" },
+  { title: "The Shape of Water", letter: "T", image: "https://m.media-amazon.com/images/I/51LmqR5hlgL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Shape_of_Water.pdf" },
+  { title: "Room", letter: "R", image: "https://m.media-amazon.com/images/I/51BdCw5wzZL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Room.pdf" },
+  { title: "Arrival", letter: "A", image: "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Arrival.pdf" },
+  { title: "The Theory of Everything", letter: "T", image: "https://m.media-amazon.com/images/I/51J6HtKhKGL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Theory_of_Everything.pdf" },
+  { title: "Get Out", letter: "G", image: "https://m.media-amazon.com/images/I/71tRpjM6RNL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/Get_Out.pdf" },
+  { title: "Inside Llewyn Davis", letter: "I", image: "https://m.media-amazon.com/images/I/51xQaQQlEtL._AC_.jpg", pdf: "#" },
+  { title: "The Social Network", letter: "T", image: "https://m.media-amazon.com/images/I/51W2b23pkLL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/The_Social_Network.pdf" },
+  { title: "No Country for Old Men", letter: "N", image: "https://m.media-amazon.com/images/I/51VzWn-58FL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/No_Country_for_Old_Men.pdf" },
+  { title: "The Grand Budapest Hotel", letter: "T", image: "https://m.media-amazon.com/images/I/71aY7I1Nj6L._AC_SL1024_.jpg", pdf: "https://thescriptsavant.com/movies/The_Grand_Budapest_Hotel.pdf" },
+  { title: "Drive", letter: "D", image: "https://m.media-amazon.com/images/I/51EcR2PQcfL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Drive.pdf" },
+  { title: "Moonlight", letter: "M", image: "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Moonlight.pdf" },
+  { title: "La La Land", letter: "L", image: "https://m.media-amazon.com/images/I/81txJhxf0hL._AC_SY679_.jpg", pdf: "https://thescriptsavant.com/movies/La_La_Land.pdf" },
+  { title: "Whiplash", letter: "W", image: "https://m.media-amazon.com/images/I/51fpJJKM81L._AC_.jpg", pdf: "https://thescriptsavant.com/movies/Whiplash.pdf" }
+
     ];
+
+
 
   const content = document.getElementById('content');
   const searchInput = document.getElementById('searchInput');
@@ -308,7 +380,7 @@
     const favBtn = document.createElement('button');
     favBtn.className = 'fav-btn';
     favBtn.setAttribute('aria-label', isFavori(film) ? `Retirer ${film.title} des favoris` : `Ajouter ${film.title} aux favoris`);
-    favBtn.innerHTML = isFavori(film) ? '♥' : '♡';
+    favBtn.innerHTML = isFavori(film) ? '★' : '☆';
 
     if (isFavori(film)) favBtn.classList.add('active');
 
@@ -316,7 +388,7 @@
       e.stopPropagation(); // éviter d'ouvrir PDF au clic sur bouton favoris
       toggleFavori(film, favBtn);
       favBtn.setAttribute('aria-label', isFavori(film) ? `Retirer ${film.title} des favoris` : `Ajouter ${film.title} aux favoris`);
-      favBtn.innerHTML = isFavori(film) ? '♥' : '♡';
+      favBtn.innerHTML = isFavori(film) ? '★' : '☆';
     });
 
     card.appendChild(favBtn);
@@ -328,10 +400,10 @@
     content.innerHTML = '';
     const section = document.createElement('section');
     section.className = 'category';
-    section.setAttribute('aria-label', 'Films populaires');
+    section.setAttribute('aria-label', 'Tous nos films');
 
     const h2 = document.createElement('h2');
-    h2.textContent = 'Films populaires';
+    h2.textContent = 'Tous nos films';
     section.appendChild(h2);
 
     const grid = document.createElement('div');
@@ -360,7 +432,7 @@
     if (favorisFilms.length === 0) {
       const msg = document.createElement('p');
       msg.className = 'msg';
-      msg.textContent = "Vous n'avez aucun film en favoris.";
+      msg.textContent = "Vous n'avez aucun film en favori. Ajoutez-en pour les retrouver plus facilement !";
       section.appendChild(msg);
     } else {
       const grid = document.createElement('div');
@@ -397,7 +469,7 @@
     if (filtered.length === 0) {
       const msg = document.createElement('p');
       msg.className = 'msg';
-      msg.textContent = "Aucun résultat trouvé.";
+      msg.textContent = "Aucun résultat trouvé";
       section.appendChild(msg);
     } else {
       const grid = document.createElement('div');
@@ -433,7 +505,35 @@
   // Affichage initial
   renderFilms();
 </script>
+  <script>
+  const films = [
+    {
+      title: "Film 1",
+      image: "https://example.com/image1.jpg",
+      pdf: "https://example.com/pdf1.pdf"
+    },
+    {
+      title: "Film 2",
+      image: "https://example.com/image2.jpg",
+      pdf: "https://example.com/pdf2.pdf"
+    },
+   
+  ];
+
+  const container = document.getElementById("main"); // ou la bonne div selon ton code
+
+  films.forEach(film => {
+    const div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+      <img src="${film.image}" alt="${film.title}">
+      <a href="${film.pdf}" target="_blank">${film.title}</a>
+    `;
+
+    container.appendChild(div);
+  });
+</script>
+
 </body>
 </html>
-
-
